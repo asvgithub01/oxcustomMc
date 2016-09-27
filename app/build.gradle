@@ -103,7 +103,8 @@ dependencies {
 
 //flavour dependencies from project, for test(necesary for generate builtsvariants aars)
 //
-  /*  play7DebugCompile project(path: ':orchextrasdk', configuration: 'play7Debug')
+  /* */
+    play7DebugCompile project(path: ':orchextrasdk', configuration: 'play7Debug')
     play8DebugCompile project(path: ':orchextrasdk', configuration: 'play8Debug')
     play9DebugCompile project(path: ':orchextrasdk', configuration: 'play9Debug')
 
@@ -126,18 +127,18 @@ dependencies {
     play8ReleaseCompile('com.google.android.gms:play-services-gcm:8.4.0')
 
     play7ReleaseCompile('com.google.android.gms:play-services-location:7.8.0')
-    play7ReleaseCompile('com.google.android.gms:play-services-gcm:7.8.0')*/
+    play7ReleaseCompile('com.google.android.gms:play-services-gcm:7.8.0')
     //flavour depencies from maven aar
-    play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
-//    play9ReleaseCompile('com.github.nuborisar.oxcustomMc:orchextrasdk:1.0:play9Release@aar')
-//            {
-//                transitive = true
-//            }
+    /*   play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
+   //    play9ReleaseCompile('com.github.nuborisar.oxcustomMc:orchextrasdk:1.0:play9Release@aar')
+   //            {
+   //                transitive = true
+   //            }
 
 
-    compile 'com.google.android.gms:play-services-location:9.0.0'
-    compile 'com.google.android.gms:play-services-gcm:9.0.0'
-    /**/
+       compile 'com.google.android.gms:play-services-location:9.0.0'
+       compile 'com.google.android.gms:play-services-gcm:9.0.0'
+       */
 /*
 
 *//*

@@ -38,8 +38,8 @@ allprojects {
                 //Image Recognition
                 //imageRecognitionInterface: 'com.github.GigigoGreenLabs.imgRecognition:imagerecognitioninterface:1.0',
                 //imageRecognitionImpl     : 'com.github.GigigoGreenLabs.imgRecognition:vuforiaimplementation:1.0.2',
-                imageRecognitionInterface: 'com.github.nuborisar.imgRecognition:imagerecognitioninterface:2.4',
-                imageRecognitionImpl     : 'com.github.nuborisar.imgRecognition:vuforiaimplementation:2.4'
+                imageRecognitionInterface: 'com.github.nuborisar.imgRecognition:imagerecognitioninterface:2.5',
+                imageRecognitionImpl     : 'com.github.nuborisar.imgRecognition:vuforiaimplementation:2.5'
         ]
 
         testDependencies = [
