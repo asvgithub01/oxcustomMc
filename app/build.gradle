@@ -22,7 +22,7 @@ apply from: rootProject.file('gradle/checkstyle.gradle')
 android {
     compileSdkVersion parent.ext.androidCompileSdkVersion
   //  buildToolsVersion parent.ext.androidBuildToolsVersion
-    buildToolsVersion = "24.0.1" //java8
+    buildToolsVersion ="23.0.1" //"24.0.1" //java8
     defaultConfig {
         applicationId "gigigo.com.orchextrasdkmctest"
         minSdkVersion 11
@@ -36,9 +36,9 @@ android {
 //            abiFilters "armeabi-v7a"
 //        }
         //java8
-        jackOptions {
-            enabled true
-        }
+//        jackOptions {
+//            enabled true
+//        }
     }
 
     lintOptions {
@@ -67,8 +67,11 @@ android {
   }
 */
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8 //java8
-        targetCompatibility JavaVersion.VERSION_1_8 //java8
+//        sourceCompatibility JavaVersion.VERSION_1_8 //java8
+//        targetCompatibility JavaVersion.VERSION_1_8 //java8
+
+        sourceCompatibility JavaVersion.VERSION_1_7 //java8
+        targetCompatibility JavaVersion.VERSION_1_7 //java8
     }
 
     productFlavors {
@@ -89,36 +92,64 @@ configurations {
 
 dependencies {
 
-    /*  compile  'com.github.Orchextra.orchextra-android-sdk:orchextrasdk:2.3.4'*/
+    /*  compile  'com.github.Orchextra.orchextra-android-sdk:orchextrasdk:2.3.4'
     play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
     compile 'com.google.android.gms:play-services-location:9.0.0'
     compile 'com.google.android.gms:play-services-gcm:9.0.0'
-
+    */
 
 
   /*compile project(':orchextrasdk')*/
 
 //flavour dependencies from project, for test(necesary for generate builtsvariants aars)
 //
-//    play7DebugCompile project(path: ':orchextrasdk', configuration: 'play7Debug')
-//    play8DebugCompile project(path: ':orchextrasdk', configuration: 'play8Debug')
-//    play9DebugCompile project(path: ':orchextrasdk', configuration: 'play9Debug')
-//
-//    play7ReleaseCompile project(path: ':orchextrasdk', configuration: 'play7Release')
-//    play8ReleaseCompile project(path: ':orchextrasdk', configuration: 'play8Release')
-  //  play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
+  /*  play7DebugCompile project(path: ':orchextrasdk', configuration: 'play7Debug')
+    play8DebugCompile project(path: ':orchextrasdk', configuration: 'play8Debug')
+    play9DebugCompile project(path: ':orchextrasdk', configuration: 'play9Debug')
 
+    play7ReleaseCompile project(path: ':orchextrasdk', configuration: 'play7Release')
+    play8ReleaseCompile project(path: ':orchextrasdk', configuration: 'play8Release')
+    play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
+    play9DebugCompile('com.google.android.gms:play-services-location:9.0.0')
+    play9DebugCompile('com.google.android.gms:play-services-gcm:9.0.0')
+
+    play8DebugCompile('com.google.android.gms:play-services-location:8.4.0')
+    play8DebugCompile('com.google.android.gms:play-services-gcm:8.4.0')
+
+    play7DebugCompile('com.google.android.gms:play-services-location:7.8.0')
+    play7DebugCompile('com.google.android.gms:play-services-gcm:7.8.0')
+
+    play9ReleaseCompile('com.google.android.gms:play-services-location:9.0.0')
+    play9ReleaseCompile('com.google.android.gms:play-services-gcm:9.0.0')
+
+    play8ReleaseCompile('com.google.android.gms:play-services-location:8.4.0')
+    play8ReleaseCompile('com.google.android.gms:play-services-gcm:8.4.0')
+
+    play7ReleaseCompile('com.google.android.gms:play-services-location:7.8.0')
+    play7ReleaseCompile('com.google.android.gms:play-services-gcm:7.8.0')*/
     //flavour depencies from maven aar
+    play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
+//    play9ReleaseCompile('com.github.nuborisar.oxcustomMc:orchextrasdk:1.0:play9Release@aar')
+//            {
+//                transitive = true
+//            }
+
+
+    compile 'com.google.android.gms:play-services-location:9.0.0'
+    compile 'com.google.android.gms:play-services-gcm:9.0.0'
+    /**/
 /*
-    compile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:2.4.3RC:play8Release@aar')
+
+*//*
+    play9ReleaseCompile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:2.4.3RC:play8Release@aar')
             {
                 transitive = true
             }
     compile 'com.google.android.gms:play-services-location:8.4.0'
-    compile 'com.google.android.gms:play-services-gcm:8.4.0'
-    */
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'*/
+   /* */
     /*
-    compile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:2.4.3RC:play8Release@aar')
+    play9ReleaseCompile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:2.4.3RC:play8Release@aar')
             {
                 transitive = true
                 exclude module: 'support-v4'
