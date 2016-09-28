@@ -12,10 +12,10 @@ import android.widget.TextView;
 import com.appoxee.Appoxee;
 import com.appoxee.AppoxeeObserver;
 import com.appoxee.asyncs.initAsync;
-import com.gigigo.orchextra.CustomSchemeReceiver;
-//import com.gigigo.orchextra.CrmUser;
-import com.gigigo.orchextra.Orchextra;
-import com.gigigo.orchextra.ui.webview.OxWebViewActivity;
+//import com.gigigo.orchextra.CustomSchemeReceiver;
+////import com.gigigo.orchextra.CrmUser;
+//import com.gigigo.orchextra.Orchextra;
+//import com.gigigo.orchextra.ui.webview.OxWebViewActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -157,10 +157,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final String CUSTOM_SCHEME = "webview://";
 
         if (v.getId() == R.id.button) {
-            Orchextra.startImageRecognition();
+       //     Orchextra.startImageRecognition();
         }
         if (v.getId() == R.id.button2) {
-            Orchextra.startScannerActivity();
+           // Orchextra.startScannerActivity();
         }
         if (v.getId() == R.id.button3) {
             if (isRunning) {
@@ -172,8 +172,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //region orchextraWebview
 
         if (v.getId() == R.id.button4) {
-            OxWebViewActivity.open(this, TEST_STREAM_URL, false);
-            Orchextra.setCustomSchemeReceiver(new CustomSchemeReceiver() {
+          //  OxWebViewActivity.open(this, TEST_STREAM_URL, false);
+         /*   Orchextra.setCustomSchemeReceiver(new CustomSchemeReceiver() {
                 @Override
                 public void onReceive(String scheme) {
                     if (scheme.contains(CUSTOM_SCHEME)) {
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         OxWebViewActivity.navigateUrl(url);
                     }
                 }
-            });
+            });*/
         }
         //endregion
 
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                Orchextra.start();
+             //   Orchextra.start();
             //old version Orchextra.start("aaf3e003bdeb2ca5c657dc3fdec161c7c11928b7", "d62ae5a993af5eda9e48fe06c4acc525a335f632");
             }
         });
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                Orchextra.stop();
+              //  Orchextra.stop();
             }
         });
         isRunning = false;

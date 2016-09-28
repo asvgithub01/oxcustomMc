@@ -22,7 +22,7 @@ apply from: rootProject.file('gradle/checkstyle.gradle')
 android {
     compileSdkVersion parent.ext.androidCompileSdkVersion
   //  buildToolsVersion parent.ext.androidBuildToolsVersion
-    buildToolsVersion ="23.0.1" //"24.0.1" //java8
+    buildToolsVersion ="23.0.2" //"24.0.1" //java8
     defaultConfig {
         applicationId "gigigo.com.orchextrasdkmctest"
         minSdkVersion 11
@@ -74,36 +74,77 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7 //java8
     }
 
-    productFlavors {
-        play7 {}
-        play8 {}
-        play9 {}
-    }
+//    productFlavors {
+//        play7 {}
+//        play8 {}
+//        play9 {}
+//    }
 }
 
-configurations {
-    play7DebugCompile
-    play8DebugCompile
-    play9DebugCompile
-    play7ReleaseCompile
-    play8ReleaseCompile
-    play9ReleaseCompile
-}
+//configurations {
+//    play7DebugCompile
+//    play8DebugCompile
+//    play9DebugCompile
+//    play7ReleaseCompile
+//    play8ReleaseCompile
+//    play9ReleaseCompile
+//}
 
 dependencies {
+
+
+
+    compile 'com.github.nuborisar.imgRecognition:vuforiaimplementation:2.7'
+
+/*
+    compile ('com.github.nuborisar.oxcustomMc:orchextrasdk:3.0:play9Release@aar')
+            {
+                transitive = true
+                changing= true
+                exclude module: 'ggglib'
+                exclude module: 'ggglogger'
+                exclude module: 'ggg-java-lib'
+            }
+            */
 
     /*  compile  'com.github.Orchextra.orchextra-android-sdk:orchextrasdk:2.3.4'
     play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
     compile 'com.google.android.gms:play-services-location:9.0.0'
     compile 'com.google.android.gms:play-services-gcm:9.0.0'
+
+    play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
+    play9ReleaseCompile('com.google.android.gms:play-services-location:9.0.0')
+    play9ReleaseCompile('com.google.android.gms:play-services-gcm:9.0.0')
     */
+
+   //mal
+    // compile 'com.github.nuborisar.imgRecognition:imagerecognitioninterface:2.7'
+    //compile 'com.github.nuborisar.imgRecognition:imagerecognitioninterface:2.5'
+    //compile 'com.github.GigigoGreenLabs.imgRecognition:imagerecognitioninterface:1.0'
+   // compile 'com.github.nuborisar.imgRecognition:vuforiaimplementation:2.5'
+   //ok compile 'com.github.nuborisar:Dexter:5.0'
+  //ok  compile ('com.github.nuborisar.gigigo-utils-suite:ggglib:5.2')
+
+    compile 'com.google.android.gms:play-services-location:8.4.0'
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
+
+
+
+
+
+
+
+
+
+
+
 
 
   /*compile project(':orchextrasdk')*/
 
 //flavour dependencies from project, for test(necesary for generate builtsvariants aars)
 //
-  /* */
+  /*
     play7DebugCompile project(path: ':orchextrasdk', configuration: 'play7Debug')
     play8DebugCompile project(path: ':orchextrasdk', configuration: 'play8Debug')
     play9DebugCompile project(path: ':orchextrasdk', configuration: 'play9Debug')
@@ -127,7 +168,7 @@ dependencies {
     play8ReleaseCompile('com.google.android.gms:play-services-gcm:8.4.0')
 
     play7ReleaseCompile('com.google.android.gms:play-services-location:7.8.0')
-    play7ReleaseCompile('com.google.android.gms:play-services-gcm:7.8.0')
+    play7ReleaseCompile('com.google.android.gms:play-services-gcm:7.8.0')*/
     //flavour depencies from maven aar
     /*   play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
    //    play9ReleaseCompile('com.github.nuborisar.oxcustomMc:orchextrasdk:1.0:play9Release@aar')
@@ -162,7 +203,7 @@ dependencies {
 //    compile 'com.android.support:design:23.0.1'
     compile(name: 'appoxee_sdk_2.7.0', ext: 'aar') //appoxee, u can test double pushnotification
     //tiene refencia a otra ggglib 104/ahora la de nubo apunta a la 5.2 y sin tontas de support
-    compile parent.ext.dependencies.imageRecognitionImpl //vuforia
+   // compile parent.ext.dependencies.imageRecognitionImpl //vuforia
 
     //webview
     compile 'com.github.Gigigo-Android-Devs:fabmenu:proto'

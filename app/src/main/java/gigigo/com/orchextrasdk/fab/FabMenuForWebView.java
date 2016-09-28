@@ -16,7 +16,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.gigigo.orchextra.Orchextra;
+//import com.gigigo.orchextra.Orchextra;
 
 import gigigo.com.fabmenu.FloatingActionsMenu;
 import gigigo.com.fabmenu.FloatingActionButton;
@@ -185,11 +185,11 @@ public class FabMenuForWebView extends RelativeLayout {
     }
 
     public void onScanPressed() {
-        Orchextra.startScannerActivity();
+       // Orchextra.startScannerActivity();
     }
 
     private void onImageScanPressed() {
-       Orchextra.startImageRecognition();
+       //Orchextra.startImageRecognition();
     }
 
 }
