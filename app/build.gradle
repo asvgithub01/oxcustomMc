@@ -74,21 +74,21 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7 //java8
     }
 
-//    productFlavors {
-//        play7 {}
-//        play8 {}
-//        play9 {}
-//    }
+    productFlavors {
+        play7 {}
+        play8 {}
+        play9 {}
+    }
 }
 
-//configurations {
-//    play7DebugCompile
-//    play8DebugCompile
-//    play9DebugCompile
-//    play7ReleaseCompile
-//    play8ReleaseCompile
-//    play9ReleaseCompile
-//}
+configurations {
+    play7DebugCompile
+    play8DebugCompile
+    play9DebugCompile
+    play7ReleaseCompile
+    play8ReleaseCompile
+    play9ReleaseCompile
+}
 
 dependencies {
 
@@ -97,7 +97,7 @@ dependencies {
     compile 'com.github.nuborisar.imgRecognition:vuforiaimplementation:2.7'
 
 /*
-    compile ('com.github.nuborisar.oxcustomMc:orchextrasdk:3.0:play9Release@aar')
+    compile ('com.github.nuborisar.oxcustomMc:orchextrasdk:3.1:play9Release@aar')
             {
                 transitive = true
                 changing= true
@@ -105,7 +105,7 @@ dependencies {
                 exclude module: 'ggglogger'
                 exclude module: 'ggg-java-lib'
             }
-            */
+              */
 
     /*  compile  'com.github.Orchextra.orchextra-android-sdk:orchextrasdk:2.3.4'
     play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
