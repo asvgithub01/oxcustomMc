@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.appoxee.Appoxee;
-import com.appoxee.AppoxeeObserver;
-import com.appoxee.asyncs.initAsync;
+//import com.appoxee.Appoxee;
+//import com.appoxee.AppoxeeObserver;
+//import com.appoxee.asyncs.initAsync;
 //import com.gigigo.orchextra.CustomSchemeReceiver;
 ////import com.gigigo.orchextra.CrmUser;
 //import com.gigigo.orchextra.Orchextra;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //region Appoxee
-    private final static String APPOXEE_SDK_KEY = "575e7877b16df0.22390647";
+/*    private final static String APPOXEE_SDK_KEY = "575e7877b16df0.22390647";
     private final static String APPOXEE_SDK_SECRET = "575e7877b16f48.87387869";
     private static final String TAG = "MainActivity";
     private static final String SOME_UNIQUE_USER_IDENTIFIER = "example";
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onMessagesUpdateCompleted() {
             //for custom inbox
         }
-    };
+    };*/
 
     //endregion
 
