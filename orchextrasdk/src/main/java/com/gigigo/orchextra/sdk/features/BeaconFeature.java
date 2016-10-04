@@ -31,6 +31,8 @@ public class BeaconFeature extends Feature {
   }
 
   @Override public boolean isSuccess() {
+
+
     return !(getStatus() == BluetoothStatus.NO_BLTE_SUPPORTED
         || getStatus() == BluetoothStatus.NO_PERMISSIONS);
   }

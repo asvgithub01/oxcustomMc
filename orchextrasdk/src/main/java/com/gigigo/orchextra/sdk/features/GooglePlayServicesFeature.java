@@ -28,7 +28,9 @@ public class GooglePlayServicesFeature extends Feature {
     super(FeatureType.GOOGLE_PLAY_SERVICES, GooglePlayServicesStatus.getGooglePlayServicesStatus(status));
   }
 
+
   @Override public boolean isSuccess() {
-    return false;
+    //todo if with status
+    return true;
   }
 }

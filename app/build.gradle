@@ -91,15 +91,14 @@ configurations {
 }
 
 dependencies {
-    /*  compile ('com.github.nuborisar.oxcustomMc:orchextrasdk:3.2:play9Release@aar')
-            {
-                transitive = true
-                changing= true
-                exclude module: 'ggglib'
-                exclude module: 'ggglogger'
-                exclude module: 'ggg-java-lib'
-            }
-            */
+//    play9ReleaseCompile('com.github.nuborisar.oxcustomMc:orchextrasdk:3.3:play9Release@aar')
+//            {
+//                transitive = true
+//                changing = true
+//                exclude module: 'ggglib'
+//                exclude module: 'ggglogger'
+//                exclude module: 'ggg-java-lib'
+//            }
 
     /*  compile  'com.github.Orchextra.orchextra-android-sdk:orchextrasdk:2.3.4'
     play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
@@ -127,30 +126,32 @@ dependencies {
 //flavour dependencies from project, for test(necesary for generate builtsvariants aars)
 //
     /**/
-      play7DebugCompile project(path: ':orchextrasdk', configuration: 'play7Debug')
-      play8DebugCompile project(path: ':orchextrasdk', configuration: 'play8Debug')
-      play9DebugCompile project(path: ':orchextrasdk', configuration: 'play9Debug')
+    play7DebugCompile project(path: ':orchextrasdk', configuration: 'play7Debug')
+    play8DebugCompile project(path: ':orchextrasdk', configuration: 'play8Debug')
+    play9DebugCompile project(path: ':orchextrasdk', configuration: 'play9Debug')
 
-      play7ReleaseCompile project(path: ':orchextrasdk', configuration: 'play7Release')
-      play8ReleaseCompile project(path: ':orchextrasdk', configuration: 'play8Release')
-      play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
-      play9DebugCompile('com.google.android.gms:play-services-location:9.0.0')
-      play9DebugCompile('com.google.android.gms:play-services-gcm:9.0.0')
+    play7ReleaseCompile project(path: ':orchextrasdk', configuration: 'play7Release')
+    play8ReleaseCompile project(path: ':orchextrasdk', configuration: 'play8Release')
 
-      play8DebugCompile('com.google.android.gms:play-services-location:8.4.0')
-      play8DebugCompile('com.google.android.gms:play-services-gcm:8.4.0')
+    play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
 
-      play7DebugCompile('com.google.android.gms:play-services-location:7.8.0')
-      play7DebugCompile('com.google.android.gms:play-services-gcm:7.8.0')
+    play9DebugCompile('com.google.android.gms:play-services-location:9.0.0')
+    play9DebugCompile('com.google.android.gms:play-services-gcm:9.0.0')
 
-      play9ReleaseCompile('com.google.android.gms:play-services-location:9.0.0')
-      play9ReleaseCompile('com.google.android.gms:play-services-gcm:9.0.0')
+    play8DebugCompile('com.google.android.gms:play-services-location:8.4.0')
+    play8DebugCompile('com.google.android.gms:play-services-gcm:8.4.0')
 
-      play8ReleaseCompile('com.google.android.gms:play-services-location:8.4.0')
-      play8ReleaseCompile('com.google.android.gms:play-services-gcm:8.4.0')
+    play7DebugCompile('com.google.android.gms:play-services-location:7.8.0')
+    play7DebugCompile('com.google.android.gms:play-services-gcm:7.8.0')
 
-      play7ReleaseCompile('com.google.android.gms:play-services-location:7.8.0')
-      play7ReleaseCompile('com.google.android.gms:play-services-gcm:7.8.0')
+    play9ReleaseCompile('com.google.android.gms:play-services-location:9.0.0')
+    play9ReleaseCompile('com.google.android.gms:play-services-gcm:9.0.0')
+
+    play8ReleaseCompile('com.google.android.gms:play-services-location:8.4.0')
+    play8ReleaseCompile('com.google.android.gms:play-services-gcm:8.4.0')
+
+    play7ReleaseCompile('com.google.android.gms:play-services-location:7.8.0')
+    play7ReleaseCompile('com.google.android.gms:play-services-gcm:7.8.0')
     //flavour depencies from maven aar
     /*   play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
    //    play9ReleaseCompile('com.github.nuborisar.oxcustomMc:orchextrasdk:1.0:play9Release@aar')
@@ -182,11 +183,11 @@ dependencies {
       compile 'com.google.android.gms:play-services-gcm:8.4.0'
   */
 
-  //  compile 'com.github.nuborisar.imgRecognition:vuforiaimplementation:2.7'
+    //  compile 'com.github.nuborisar.imgRecognition:vuforiaimplementation:2.7'
 
     compile 'com.android.support:appcompat-v7:23.0.1'
 //    compile 'com.android.support:design:23.0.1'
-   // compile(name: 'appoxee_sdk_2.7.0', ext: 'aar') //appoxee, u can test double pushnotification
+    // compile(name: 'appoxee_sdk_2.7.0', ext: 'aar') //appoxee, u can test double pushnotification
     //tiene refencia a otra ggglib 104/ahora la de nubo apunta a la 5.2 y sin tontas de support
     // compile parent.ext.dependencies.imageRecognitionImpl //vuforia
 //    compile 'com.google.android.gms:play-services-location:9.4.0'

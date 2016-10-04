@@ -36,16 +36,15 @@
   <application
       android:allowBackup="true"
       android:supportsRtl="true">
-
+      <!--android:theme="@style/OxAppThemeNoBar"-->
       <activity
           android:name=".ui.webview.OxWebViewActivity"
-          android:theme="@style/OxAppThemeNoBar"
           android:screenOrientation="portrait"/>
 
       <activity
           android:name=".ui.scanner.OxScannerActivity"
           android:screenOrientation="portrait"
-          android:theme="@style/OxAppThemeNoBar"/>
+          android:theme="@style/OxAppTheme"/>
 
       <receiver android:name=".sdk.background.OrchextraBootBroadcastReceiver">
         <intent-filter>

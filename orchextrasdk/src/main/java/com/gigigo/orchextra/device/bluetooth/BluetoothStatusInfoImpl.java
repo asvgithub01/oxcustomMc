@@ -118,7 +118,7 @@ public class BluetoothStatusInfoImpl implements BluetoothStatusInfo {
     if (bluetoothStatusListener!=null){
       bluetoothStatusListener.onBluetoothStatus(status);
     }
-    featureListener.onFeatureStatusChanged(new BeaconFeature(status));
+    featureListener.onFeatureStatusChanged(new BeaconFeature(status)); //todo this line, check
   }
 
 }

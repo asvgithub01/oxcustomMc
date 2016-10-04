@@ -56,8 +56,10 @@ public class OrchextraTasksManagerImpl implements OrchextraTasksManager{
   private void initTasks(int appRunningMode) {
     orchextraLogger.log("Generic tasks have been started: Monitoring and Geofences");
 
-    beaconScanner.startMonitoring();
+
     geofenceRegister.startGeofenceRegister();
+    beaconScanner.startMonitoring();
+
 
     if (appRunningMode == FOREGROUND){
       orchextraLogger.log("Foreground tasks have been started: Ranging and Request config");

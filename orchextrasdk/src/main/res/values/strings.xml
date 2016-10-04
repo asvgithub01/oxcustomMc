@@ -32,6 +32,7 @@
   <string name="ox_cancel_text">Cancelar</string>
 
   <string name="ox_not_supported_android_sdk">This android sdk version is too old to support Orchextra features.</string>
+  <string name="ox_initialize_android_sdk">Initialize Orchextra Successfully, with API>=18</string>
 
   <string name="ox_scanner_toolbar_title">Scanner</string>
   <string name="ox_webview_toolbar_title">Web View</string>
