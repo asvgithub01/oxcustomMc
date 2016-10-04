@@ -197,6 +197,6 @@ dependencies {
     compile 'com.github.Gigigo-Android-Devs:fabmenu:proto'
 
     testCompile parent.ext.testDependencies.junit
-
+    compile 'com.github.nuborisar.imgRecognition:vuforiaimplementation:3.0'
 
 }
