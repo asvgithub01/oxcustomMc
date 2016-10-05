@@ -24,22 +24,15 @@ allprojects {
                 daggerCompiler           : 'com.github.GigigoGreenLabs.repackagedLibs:dagger-compiler:2.2.2',
                 dagger                   : 'com.github.GigigoGreenLabs.repackagedLibs:dagger:2.2.2',
 
-//                playServicesLocation     : 'com.google.android.gms:play-services-location:8.4.0',
-//                playServicesGcm          : 'com.google.android.gms:play-services-gcm:8.4.0',
-
                 altBeacon                : 'org.altbeacon:android-beacon-library:2+',
                 barcodescanner           : 'me.dm7.barcodescanner:zbar:1.8.4',
-//gggJavaLib               : 'com.github.Gigigo-Android-Devs.gigigo-utils-suite:ggg-java-lib:1.0.7',
-//gggLogger                : 'com.github.Gigigo-Android-Devs.gigigo-utils-suite:ggglogger:1.0.7',
-//gggLib                   : 'com.github.Gigigo-Android-Devs.gigigo-utils-suite:ggglib:1.0.7',
-                gggJavaLib               : 'com.github.nuborisar.gigigo-utils-suite:ggg-java-lib:5.3',
-                gggLogger                : 'com.github.nuborisar.gigigo-utils-suite:ggglogger:5.3',
-                gggLib                   : 'com.github.nuborisar.gigigo-utils-suite:ggglib:5.3',
+
+                gggJavaLib               : 'com.github.GigigoGreenLabs.gggUtilsSuite:ggg-java-lib:1.0',
+                gggLogger                : 'com.github.GigigoGreenLabs.gggUtilsSuite:ggglogger:1.0',
+                gggLib                   : 'com.github.GigigoGreenLabs.gggUtilsSuite:ggglib:1.0',
                 //Image Recognition
-                //imageRecognitionInterface: 'com.github.GigigoGreenLabs.imgRecognition:imagerecognitioninterface:1.0',
-                //imageRecognitionImpl     : 'com.github.GigigoGreenLabs.imgRecognition:vuforiaimplementation:1.0.2',
-                imageRecognitionInterface: 'com.github.nuborisar.imgRecognition:imagerecognitioninterface:3.0',
-                imageRecognitionImpl     : 'com.github.nuborisar.imgRecognition:vuforiaimplementation:3.0'
+                imageRecognitionInterface: 'com.github.GigigoGreenLabs.imgRecogModule:imagerecognitioninterface:1.0',
+                imageRecognitionImpl     : 'com.github.GigigoGreenLabs.imgRecogModule:vuforiaimplementation:1.0'
         ]
 
         testDependencies = [

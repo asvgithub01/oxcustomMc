@@ -91,7 +91,7 @@ configurations {
 }
 
 dependencies {
-//    play9ReleaseCompile('com.github.nuborisar.oxcustomMc:orchextrasdk:3.3:play9Release@aar')
+//    play9ReleaseCompile('com.github.nuborisar.oxcustomMc:orchextrasdk:3.5:play9Release@aar')
 //            {
 //                transitive = true
 //                changing = true
@@ -197,6 +197,7 @@ dependencies {
     compile 'com.github.Gigigo-Android-Devs:fabmenu:proto'
 
     testCompile parent.ext.testDependencies.junit
-    compile 'com.github.nuborisar.imgRecognition:vuforiaimplementation:3.0'
+      // compile 'com.github.nuborisar.imgRecognition:vuforiaimplementation:3.0'
+  compile  'com.github.GigigoGreenLabs.imgRecogModule:vuforiaimplementation:1.0'
 
 }
