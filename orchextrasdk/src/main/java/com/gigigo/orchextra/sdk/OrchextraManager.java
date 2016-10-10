@@ -274,6 +274,7 @@ public class OrchextraManager {
 
             completionCallback.onInit(app.getString(R.string.ox_initialize_android_sdk));
         } else {
+            this.instance = null ;
             completionCallback.onInit(app.getString(R.string.ox_not_supported_android_sdk));
         }
     }
