@@ -26,47 +26,49 @@ import com.gigigo.orchextra.di.injector.InjectorImpl;
 import com.gigigo.orchextra.domain.abstractions.initialization.OrchextraStatusAccessor;
 import com.gigigo.orchextra.sdk.OrchextraManager;
 
+import java.io.IOException;
+
 import orchextra.javax.inject.Inject;
 
 public class OrchextraBootBroadcastReceiver extends BroadcastReceiver {
 
-  public static final String BOOT_COMPLETED_ACTION = "android.intent.action.BOOT_COMPLETED";
-  private static final String CONNECTION_READY_ACTION = "AAAAAA"; //TODO
+    public static final String BOOT_COMPLETED_ACTION = "android.intent.action.BOOT_COMPLETED";
+    private static final String CONNECTION_READY_ACTION = "AAAAAA"; //TODO
 
-  @Inject
-  OrchextraStatusAccessor orchextraStatusAccessor;
+    @Inject
+    OrchextraStatusAccessor orchextraStatusAccessor;
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-      initDependencies();
+        initDependencies();
 
-      if (orchextraStatusAccessor.isStarted()){
-        String action = intent.getAction();
-        initTasksForBoot(context, action);
-        initTasksForConnection(context, action);
-      }
+        if (orchextraStatusAccessor != null && orchextraStatusAccessor.isStarted()) {
+            String action = intent.getAction();
+            initTasksForBoot(context, action);
+            initTasksForConnection(context, action);
+        }
     }
 
-  private void initDependencies() {
-    InjectorImpl injector = OrchextraManager.getInjector();
-    if (injector != null) {
-      injector.injectBroadcastComponent(this);
+    private void initDependencies() {
+        InjectorImpl injector = OrchextraManager.getInjector();
+        if (injector != null) {
+            injector.injectBroadcastComponent(this);
+        }
     }
-  }
 
-  private void initTasksForBoot(Context context, String action) {
-    if (action.equals(BOOT_COMPLETED_ACTION)) {
-      Intent pushIntent = new Intent(context, OrchextraBackgroundService.class);
-      pushIntent.putExtra(action, true);
-      context.startService(pushIntent);
+    private void initTasksForBoot(Context context, String action) {
+        if (action!=null && action.equals(BOOT_COMPLETED_ACTION)) {
+            Intent pushIntent = new Intent(context, OrchextraBackgroundService.class);
+            pushIntent.putExtra(action, true);
+            context.startService(pushIntent);
+        }
     }
-  }
 
-  private void initTasksForConnection(Context context, String action) {
-    if (action.equals(CONNECTION_READY_ACTION)) {
-      //TODO Implement neccessary tasks, maybe refresh config?
+    private void initTasksForConnection(Context context, String action) {
+        if (action!=null && action.equals(CONNECTION_READY_ACTION)) {
+            //TODO Implement neccessary tasks, maybe refresh config?
+        }
     }
-  }
 }

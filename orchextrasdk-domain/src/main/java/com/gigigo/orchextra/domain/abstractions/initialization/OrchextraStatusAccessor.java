@@ -45,7 +45,7 @@ public interface OrchextraStatusAccessor {
    *
    * @return boolean: true if started and false otherwise
    */
-  boolean isStarted();
+  boolean isStarted() throws NullPointerException  ;
 
   /**
    * sets sdk status as stopped
