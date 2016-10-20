@@ -57,8 +57,10 @@ public class RetrieveLastKnownLocation {
 
     public void getLastKnownLocation(OnLastKnownLocationListener onLastKnownLocationListener) {
         this.onLastKnownLocationListener = onLastKnownLocationListener;
-        googleApiClientConnector.setOnConnectedListener(onConnectedListener);
-        googleApiClientConnector.connect();
+        if (googleApiClientConnector != null) {
+            googleApiClientConnector.setOnConnectedListener(onConnectedListener);
+            googleApiClientConnector.connect();
+        }
     }
 
     private GoogleApiClientConnector.OnConnectedListener onConnectedListener = new GoogleApiClientConnector.OnConnectedListener() {
@@ -89,19 +91,21 @@ public class RetrieveLastKnownLocation {
 
     @SuppressWarnings("ResourceType")
     private void getLastKnownLocation() {
-        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClientConnector.getGoogleApiClient());
-        if (onLastKnownLocationListener != null) {
-            onLastKnownLocationListener.onLastKnownLocation(lastLocation);
+        if (googleApiClientConnector != null && googleApiClientConnector.getGoogleApiClient() != null && googleApiClientConnector.isConnected()) {
+            Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClientConnector.getGoogleApiClient());
+            if (onLastKnownLocationListener != null) {
+                onLastKnownLocationListener.onLastKnownLocation(lastLocation);
+            }
         }
     }
 
     private UserPermissionRequestResponseListener userPermissionResponseListener =
             new UserPermissionRequestResponseListener() {
-        @Override
-        public void onPermissionAllowed(boolean permissionAllowed) {
-            getLastKnownLocation();
-        }
-    };
+                @Override
+                public void onPermissionAllowed(boolean permissionAllowed) {
+                    getLastKnownLocation();
+                }
+            };
 
     @SuppressWarnings("ResourceType")
     private void getNetworkGpsLocation() {
