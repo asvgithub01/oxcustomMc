@@ -32,6 +32,10 @@ import com.gigigo.orchextra.sdk.application.applifecycle.OrchextraActivityLifecy
 import orchextra.javax.inject.Inject;
 
 public class OrchextraBackgroundService extends Service {
+	@Override
+	public void onTaskRemoved(Intent rootIntent) {
+		super.onTaskRemoved(rootIntent);
+	}
 
 	@Inject BackgroundTasksManager backgroundTasksManager;
 	@Inject OrchextraActivityLifecycle orchextraActivityLifecycle;

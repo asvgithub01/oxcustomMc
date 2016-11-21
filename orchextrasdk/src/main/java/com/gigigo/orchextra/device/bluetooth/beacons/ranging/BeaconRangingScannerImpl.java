@@ -91,6 +91,7 @@ public class BeaconRangingScannerImpl implements RangeNotifier, BeaconRangingSca
       beaconsController.onBeaconsDetectedInRegion(beacons, beaconRegionMapper.externalClassToModel(
           region));
     }
+    //todo esto debe controlar el value de los Ids ya q en eddystone no existe id3 nunca y el id2 en ocasiones tampoco
 
     if (collection.size() > 0) {
       for (Beacon beacon : collection) {

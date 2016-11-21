@@ -25,6 +25,7 @@ import com.gigigo.orchextra.Orchextra;
 import com.gigigo.orchextra.OrchextraBuilder;
 import com.gigigo.orchextra.OrchextraCompletionCallback;
 import com.gigigo.orchextra.OrchextraLogLevel;
+import com.gigigo.orchextra.device.bluetooth.beacons.BeaconBackgroundPeriodBetweenScan;
 import com.gigigo.vuforiaimplementation.ImageRecognitionVuforiaImpl;
 
 import orchextra.javax.inject.Qualifier;
@@ -56,6 +57,7 @@ public class App extends Application implements OrchextraCompletionCallback, Cus
                 .setImageRecognitionModule(new ImageRecognitionVuforiaImpl());
         Orchextra.initialize(builder);
         Orchextra.setCustomSchemeReceiver(this);
+
         Orchextra.start(); //for only one time, each time you start Orchextra get orchextra project configuration is call
     }
 

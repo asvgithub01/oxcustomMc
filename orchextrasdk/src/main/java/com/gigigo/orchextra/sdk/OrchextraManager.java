@@ -290,6 +290,10 @@ public class OrchextraManager {
         orchextraComponent.injectOrchextra(OrchextraManager.instance);
     }
 
+    public void restart() {
+        new Thread(getStartRunnable()).start();
+    }
+
     private void start() {
         new Thread(getStartRunnable()).start();
     }
