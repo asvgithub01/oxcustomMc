@@ -141,6 +141,15 @@ public class OrchextraManager {
             }
         }
     }
+    public static void sdkReStart() {
+        if (AndroidSdkVersion.hasJellyBean18()) {
+            if (OrchextraManager.instance != null) {
+                OrchextraManager.instance.restart();
+            } else {
+                showInitializationError();
+            }
+        }
+    }
 
     /**
      * This method is called from client app in order to start application at one concrete moment,
