@@ -17,10 +17,15 @@
  */
 package com.gigigo.orchextra;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.gigigo.orchextra.device.bluetooth.beacons.BeaconBackgroundPeriodBetweenScan;
 import com.gigigo.orchextra.domain.abstractions.actions.CustomOrchextraSchemeReceiver;
 import com.gigigo.orchextra.domain.abstractions.initialization.OrchextraManagerCompletionCallback;
 import com.gigigo.orchextra.sdk.OrchextraManager;
+import com.gigigo.orchextra.sdk.background.OrchextraBackgroundService;
+import com.gigigo.orchextra.sdk.background.OrchextraBootBroadcastReceiver;
 
 public final class Orchextra {
 
@@ -69,8 +74,6 @@ public final class Orchextra {
         OrchextraManager.saveApiKeyAndSecret(orchextraBuilder.getApiKey(), orchextraBuilder.getApiSecret());
         OrchextraManager.setImageRecognition(orchextraBuilder.getImageRecognitionModule());
     }
-
-
 
 
     /**
@@ -140,7 +143,7 @@ public final class Orchextra {
     /**
      * You can change the period between scanning beacons. The lower scanning period, the bigger battery consumption<br/>
      * For default, the period between scanning is 5 minutes(LIGHT).<p/>
-     *
+     * <p/>
      * You can use this other intensities:<br/>
      * WEAK - 10 minutes<br/>
      * LIGHT - 5 minutes<br/>
@@ -154,5 +157,11 @@ public final class Orchextra {
      */
     public static void updateBackgroundPeriodBetweenScan(BeaconBackgroundPeriodBetweenScan intensity) {
         OrchextraManager.updateBackgroundPeriodBetweenScan(intensity.getIntensity());
+    }
+
+    public static void refreshConfigurationInBackground(Context context) {
+        Intent i = new Intent(context.getApplicationContext(), OrchextraBackgroundService.class);
+        i.putExtra(OrchextraBootBroadcastReceiver.REFRESH_CONFIG_ACTION, true);
+        context.getApplicationContext().startService(i);
     }
 }

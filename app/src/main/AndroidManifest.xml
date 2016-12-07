@@ -36,6 +36,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".WebViewActivity" android:theme="@style/AppThemeNoBar"></activity>
+        <!--updateConfig-->
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+        <receiver android:name=".UpdateConfigReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

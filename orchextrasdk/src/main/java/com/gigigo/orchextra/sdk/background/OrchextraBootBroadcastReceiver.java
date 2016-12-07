@@ -33,6 +33,7 @@ import orchextra.javax.inject.Inject;
 public class OrchextraBootBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BOOT_COMPLETED_ACTION = "android.intent.action.BOOT_COMPLETED";
+    public static final String REFRESH_CONFIG_ACTION = "android.intent.action.REFRESH_CONFIG";
     private static final String CONNECTION_READY_ACTION = "AAAAAA"; //TODO
 
     @Inject
