@@ -20,15 +20,15 @@ import com.gigigo.orchextra.CustomSchemeReceiver;
 import com.gigigo.orchextra.Orchextra;
 import com.gigigo.orchextra.ui.webview.OxWebViewActivity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import gigigo.com.orchextrasdk.adonservices.UpdateConfigReceiver;
+import gigigo.com.orchextrasdk.adonservices.UpdateConfigUtility;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    @Override
+    protected void onPause() {
+        super.onPause();
+       App.mMotionServiceUtility.start();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +40,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setListeners();
 
         //appoxeeSDK
-       // startAppoxee();
-    }
+        // startAppoxee();
+        Orchextra.start();
 
+        App.mMotionServiceUtility.stop();
+
+        //we only program updater if the OX are in start mode
+        UpdateConfigUtility updater = new UpdateConfigUtility(MainActivity.this);
+        updater.createUpdateConfigurationByTime(60 * 1000 * 60);
+        enablerUpdateConfigReBootService(MainActivity.this.getApplication(), true);
+    }
 
 
     //region Orchextra
@@ -89,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //region orchextraWebview
 
         if (v.getId() == R.id.button4) {
-          OxWebViewActivity.open(this, TEST_STREAM_URL, false);
-         Orchextra.setCustomSchemeReceiver(new CustomSchemeReceiver() {
+            OxWebViewActivity.open(this, TEST_STREAM_URL, false);
+            Orchextra.setCustomSchemeReceiver(new CustomSchemeReceiver() {
                 @Override
                 public void onReceive(String scheme) {
                     if (scheme.contains(CUSTOM_SCHEME)) {
@@ -117,11 +124,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                 Orchextra.start();
-                //UpdateConfigWrapper ONly when Start
-                UpdateConfigWrapper updater = new UpdateConfigWrapper(MainActivity.this);
-                updater.createUpdateConfigurationByTime(1000, 500);//update if move 500m.
+                Orchextra.start();
+                //UpdateConfigUtility ONly when Start
+                UpdateConfigUtility updater = new UpdateConfigUtility(MainActivity.this);
+                updater.createUpdateConfigurationByTime(60000, 1000);//update if move 500m.
                 enablerUpdateConfigReBootService(MainActivity.this.getApplication(), true);
+
+
             }
         });
 
@@ -134,13 +143,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-              //  Orchextra.stop();
+                //  Orchextra.stop();
             }
         });
         isRunning = false;
         button3.setText(R.string.ox_start_orchextra);
         statusText.setText(getString(R.string.status_text, getString(R.string.status_stoped)));
     }
+
     private void enablerUpdateConfigReBootService(Application application, boolean bState) {
         int componentEnabledState;
         if (!bState) {
