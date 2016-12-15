@@ -43,6 +43,11 @@ public class BackgroundTasksManagerImpl implements BackgroundTasksManager {
       }
   }
 
+  @Override public void reStartBackgroundTasks() {
+    if (permissionChecker.isGranted(permission)) {
+      orchextraTasksManager.reStartBackgroundTasks();
+    }
+  }
   @Override public void finalizeBackgroundTasks() {
     orchextraTasksManager.stopBackgroundServices();
   }

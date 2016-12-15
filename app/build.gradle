@@ -24,7 +24,7 @@ android {
     //  buildToolsVersion parent.ext.androidBuildToolsVersion
     buildToolsVersion = "23.0.1" //"24.0.1" //java8
     defaultConfig {
-        applicationId "gigigo.com.orchextrasdkmctest"
+        applicationId "gigigo.com.orchextrasdkmctest.BatterySaviorOX"
         minSdkVersion 11
 //parent.ext.androidMinSdkVersion //you can change that, but you need API >=10 for fabmenu
         targetSdkVersion parent.ext.androidTargetSdkVersion
@@ -91,15 +91,16 @@ configurations {
 }
 
 dependencies {
-//    play9ReleaseCompile('com.github.nuborisar.oxcustomMc:orchextrasdk:3.5:play9Release@aar')
-//            {
-//                transitive = true
-//                changing = true
-//                exclude module: 'ggglib'
-//                exclude module: 'ggglogger'
-//                exclude module: 'ggg-java-lib'
-//            }
-
+    /* compile('com.github.nuborisar.oxcustomMc:orchextrasdk:4.2:play7Debug@aar')
+              {
+                  transitive = true
+                  changing = true
+                 // exclude module: 'ggglib'
+                //  exclude module: 'ggglogger'
+               //   exclude module: 'ggg-java-lib'
+              }
+    compile('com.google.android.gms:play-services-location:7.8.0')
+    compile('com.google.android.gms:play-services-gcm:7.8.0')*/
     /*  compile  'com.github.Orchextra.orchextra-android-sdk:orchextrasdk:2.3.4'
     play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
     compile 'com.google.android.gms:play-services-location:9.0.0'
@@ -121,11 +122,11 @@ dependencies {
 //    compile 'com.google.android.gms:play-services-location:8.4.0'
 //    compile 'com.google.android.gms:play-services-gcm:8.4.0'
 
-    /*compile project(':orchextrasdk')*/
+   // compile project(':orchextrasdk')
 
 //flavour dependencies from project, for test(necesary for generate builtsvariants aars)
 //
-    /**/
+
     play7DebugCompile project(path: ':orchextrasdk', configuration: 'play7Debug')
     play8DebugCompile project(path: ':orchextrasdk', configuration: 'play8Debug')
     play9DebugCompile project(path: ':orchextrasdk', configuration: 'play9Debug')

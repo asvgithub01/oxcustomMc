@@ -141,6 +141,7 @@ public class OrchextraManager {
             }
         }
     }
+
     public static void sdkReStart() {
         if (AndroidSdkVersion.hasJellyBean18()) {
             if (OrchextraManager.instance != null) {
@@ -264,6 +265,10 @@ public class OrchextraManager {
         }
     }
 
+    private void pauseOrchextraTasks() {
+        orchextraTasksManager.pauseAllTasks();
+    }
+
     /**
      * Fist call to orchextra, it is compulsory call this for starting to do any sdk Stuff
      *
@@ -283,7 +288,7 @@ public class OrchextraManager {
 
             completionCallback.onInit(app.getString(R.string.ox_initialize_android_sdk));
         } else {
-            this.instance = null ;
+            this.instance = null;
             completionCallback.onInit(app.getString(R.string.ox_not_supported_android_sdk));
         }
     }
@@ -496,4 +501,21 @@ public class OrchextraManager {
     public static long getBackgroundPeriodBetweenScan() {
         return OrchextraManager.instance.backgroundPeriodBetweenScan;
     }
+
+    public static synchronized void sdkPause() {
+
+        OrchextraManager orchextraManager = OrchextraManager.instance;
+        if (orchextraManager != null &&
+                orchextraManager.orchextraStatusAccessor != null &&
+                orchextraManager.orchextraStatusAccessor.isStarted()) {
+//fixme new pause status
+            //    orchextraManager.orchextraStatusAccessor.setStoppedStatus();
+            instance.pauseOrchextraTasks();
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\npauseOrchextraTasks");
+
+        }
+
+    }
+
+
 }

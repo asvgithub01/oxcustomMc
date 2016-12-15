@@ -18,6 +18,12 @@
 
 package com.gigigo.orchextra.device.bluetooth;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
+import android.os.Build;
+import android.os.Handler;
+
 import com.gigigo.ggglib.ContextProvider;
 import com.gigigo.ggglib.permissions.Permission;
 import com.gigigo.ggglib.permissions.PermissionChecker;
@@ -119,6 +125,10 @@ public class BluetoothStatusInfoImpl implements BluetoothStatusInfo {
       bluetoothStatusListener.onBluetoothStatus(status);
     }
     featureListener.onFeatureStatusChanged(new BeaconFeature(status)); //todo this line, check
+
+
+
+
   }
 
 }

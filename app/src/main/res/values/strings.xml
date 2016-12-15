@@ -17,7 +17,7 @@
   -->
 
 <resources>
-  <string name="app_name">MC beacons OrchextraSDK</string>
+  <string name="app_name">OXMCD_MOTION_SENSOR</string>
   <string name="ox_start_orchextra">Start Orchextra</string>
   <string name="ox_stop_orchextra">Stop Orchextra</string>
   <string name="ox_webview_orchextra">open webviewOX</string>

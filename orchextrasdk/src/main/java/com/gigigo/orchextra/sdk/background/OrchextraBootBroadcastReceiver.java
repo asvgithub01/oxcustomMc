@@ -34,6 +34,7 @@ public class OrchextraBootBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BOOT_COMPLETED_ACTION = "android.intent.action.BOOT_COMPLETED";
     public static final String REFRESH_CONFIG_ACTION = "android.intent.action.REFRESH_CONFIG";
+    public static final String RESTART_SERVICES = "android.intent.action.RESTART_SERVICES";
     private static final String CONNECTION_READY_ACTION = "AAAAAA"; //TODO
 
     @Inject

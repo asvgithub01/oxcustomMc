@@ -56,16 +56,24 @@ public class OrchextraBackgroundService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         orchextraLogger.log("Service method :: onStartCommand");
         boolean requestConfig = shouldRequestConfig(intent);
+        //refresh
         boolean refreshConfig = shouldRefreshConfig(intent);
+        //restart Services
+        boolean restartServices = shouldReStartServices(intent);
 
-        if (orchextraStatusAccessor.isStarted() || refreshConfig) {
-            if (refreshConfig)
-                startBackgroundTasks(refreshConfig);
-            else
-                startBackgroundTasks(requestConfig);
+        if(restartServices){
+            restartBackgroundTasks();
             return START_STICKY;
         }
-
+        else {
+            if (orchextraStatusAccessor.isStarted() || refreshConfig) {
+                if (refreshConfig)
+                    startBackgroundTasks(refreshConfig);
+                else
+                    startBackgroundTasks(requestConfig);
+                return START_STICKY;
+            }
+        }
         return START_NOT_STICKY;
     }
 
@@ -84,7 +92,13 @@ public class OrchextraBackgroundService extends Service {
             return false;
         }
     }
-
+    private boolean shouldReStartServices(Intent intent) {
+        if (intent != null) {
+            return intent.getBooleanExtra(OrchextraBootBroadcastReceiver.RESTART_SERVICES, false);
+        } else {
+            return false;
+        }
+    }
     private void startBackgroundTasks(boolean requestConfig) {
         AppStatusEventsListener appStatusEventsListener = orchextraActivityLifecycle.getAppStatusEventsListener();
         appStatusEventsListener.onServiceRecreated();
@@ -95,6 +109,14 @@ public class OrchextraBackgroundService extends Service {
         }
     }
 
+
+    private void restartBackgroundTasks() {
+        AppStatusEventsListener appStatusEventsListener = orchextraActivityLifecycle.getAppStatusEventsListener();
+        appStatusEventsListener.onServiceRecreated();
+        backgroundTasksManager.reStartBackgroundTasks();
+
+
+    }
     @Override
     public void onCreate() {
         super.onCreate();

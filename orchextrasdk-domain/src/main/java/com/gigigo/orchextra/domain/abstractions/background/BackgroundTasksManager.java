@@ -20,9 +20,11 @@ package com.gigigo.orchextra.domain.abstractions.background;
 
 public interface BackgroundTasksManager {
 
-  void startBackgroundTasks();
+    void startBackgroundTasks();
 
-  void finalizeBackgroundTasks();
+    void reStartBackgroundTasks();
 
-  void requestConfig();
+    void finalizeBackgroundTasks();
+
+    void requestConfig();
 }

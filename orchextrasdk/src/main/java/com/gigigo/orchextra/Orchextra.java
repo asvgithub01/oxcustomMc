@@ -111,6 +111,10 @@ public final class Orchextra {
         OrchextraManager.sdkStop();
     }
 
+    public static synchronized void pause() {
+        OrchextraManager.sdkPause();
+    }
+
     /**
      * If it is definied in the dashboard a custom scheme action, all the events trigger, which match with of this type, are sending at this callback
      */
