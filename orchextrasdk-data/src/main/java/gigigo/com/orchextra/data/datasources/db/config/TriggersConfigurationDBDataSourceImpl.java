@@ -39,108 +39,111 @@ import io.realm.exceptions.RealmException;
 
 public class TriggersConfigurationDBDataSourceImpl implements TriggersConfigurationDBDataSource {
 
-  private final Context context;
-  private final ConfigInfoResultUpdater configInfoResultUpdater;
-  private final ConfigInfoResultReader configInfoResultReader;
-  private final RealmDefaultInstance realmDefaultInstance;
+    private final Context context;
+    private final ConfigInfoResultUpdater configInfoResultUpdater;
+    private final ConfigInfoResultReader configInfoResultReader;
+    private final RealmDefaultInstance realmDefaultInstance;
 
-  public TriggersConfigurationDBDataSourceImpl(Context context, ConfigInfoResultUpdater configInfoResultUpdater,
-                                               ConfigInfoResultReader configInfoResultReader, RealmDefaultInstance realmDefaultInstance) {
+    public TriggersConfigurationDBDataSourceImpl(Context context, ConfigInfoResultUpdater configInfoResultUpdater,
+                                                 ConfigInfoResultReader configInfoResultReader, RealmDefaultInstance realmDefaultInstance) {
 
-    this.context = context;
-    this.configInfoResultUpdater = configInfoResultUpdater;
-    this.configInfoResultReader = configInfoResultReader;
-    this.realmDefaultInstance = realmDefaultInstance;
-  }
-
-  public OrchextraUpdates saveConfigData(ConfigurationInfoResult configurationInfoResult) {
-
-    Realm realm = realmDefaultInstance.createRealmInstance(context);
-
-    try {
-      realm.beginTransaction();
-      OrchextraUpdates orchextraUpdates =
-          configInfoResultUpdater.updateConfigInfoV2(realm, configurationInfoResult);
-      return orchextraUpdates;
-    } catch (Exception re) {
-      re.printStackTrace();
-      return null;
-    } finally {
-      realm.commitTransaction();
-      if (realm != null) {
-        realm.close();
-      }
+        this.context = context;
+        this.configInfoResultUpdater = configInfoResultUpdater;
+        this.configInfoResultReader = configInfoResultReader;
+        this.realmDefaultInstance = realmDefaultInstance;
     }
-  }
 
-  public BusinessObject<ConfigurationInfoResult> obtainConfigData() {
-    Realm realm = realmDefaultInstance.createRealmInstance(context);
+    public OrchextraUpdates saveConfigData(ConfigurationInfoResult configurationInfoResult) {
 
-    try {
-      ConfigurationInfoResult configurationInfoResult = configInfoResultReader.readConfigInfo(realm);
-      return new BusinessObject<>(configurationInfoResult, BusinessError.createOKInstance());
-    } catch (NotFountRealmObjectException | RealmException re) {
-      return new BusinessObject(null, BusinessError.createKoInstance(re.getMessage()));
-    } finally {
-      if (realm != null) {
-        realm.close();
-      }
+        Realm realm = realmDefaultInstance.createRealmInstance(context);
+
+        try {
+            realm.beginTransaction();
+            OrchextraUpdates orchextraUpdates =
+                    configInfoResultUpdater.updateConfigInfoV2(realm, configurationInfoResult);
+            return orchextraUpdates;
+        } catch (Exception re) {
+            re.printStackTrace();
+            return null;
+        } finally {
+            realm.commitTransaction();
+            if (realm != null) {
+                realm.close();
+            }
+        }
     }
-  }
 
-  @Override public BusinessObject<List<OrchextraRegion>> obtainRegionsForScan() {
-    Realm realm = realmDefaultInstance.createRealmInstance(context);
-    List<OrchextraRegion> regions = configInfoResultReader.getAllRegions(realm);
-    if (realm != null) {
-      realm.close();
+    public BusinessObject<ConfigurationInfoResult> obtainConfigData() {
+        Realm realm = realmDefaultInstance.createRealmInstance(context);
+
+        try {
+            ConfigurationInfoResult configurationInfoResult = configInfoResultReader.readConfigInfo(realm);
+            return new BusinessObject<>(configurationInfoResult, BusinessError.createOKInstance());
+        } catch (NotFountRealmObjectException | RealmException re) {
+            return new BusinessObject(null, BusinessError.createKoInstance(re.getMessage()));
+        } finally {
+            if (realm != null) {
+                realm.close();
+            }
+        }
     }
-    return new BusinessObject<>(regions, BusinessError.createOKInstance());
-  }
 
-  @Override public BusinessObject<List<OrchextraGeofence>> obtainGeofencesForRegister() {
-    Realm realm = realmDefaultInstance.createRealmInstance(context);
-    try {
-      List<OrchextraGeofence> geofences = configInfoResultReader.getAllGeofences(realm);
-      return new BusinessObject<>(geofences, BusinessError.createOKInstance());
-    } catch (NotFountRealmObjectException | RealmException re) {
-      return new BusinessObject(null, BusinessError.createKoInstance(re.getMessage()));
-    } finally {
-      if (realm != null) {
-        realm.close();
-      }
+    @Override
+    public BusinessObject<List<OrchextraRegion>> obtainRegionsForScan() {
+        Realm realm = realmDefaultInstance.createRealmInstance(context);
+        List<OrchextraRegion> regions = configInfoResultReader.getAllRegions(realm);
+        if (realm != null) {
+            realm.close();
+        }
+        return new BusinessObject<>(regions, BusinessError.createOKInstance());
     }
-  }
 
-  @Override
-  public BusinessObject<Object> removeLocalStorage() {
-    Realm realm = realmDefaultInstance.createRealmInstance(context);
-
-    try {
-      configInfoResultUpdater.removeConfigInfo(realm);
-      return new BusinessObject<>(null, BusinessError.createOKInstance());
-    } catch (Exception re) {
-      GGGLogImpl.log("No se ha eliminado correctamente la bas de datos: " + re.getMessage());
-      return new BusinessObject(null, BusinessError.createKoInstance(re.getMessage()));
-    } finally {
-      if (realm != null) {
-        realm.close();
-      }
+    @Override
+    public BusinessObject<List<OrchextraGeofence>> obtainGeofencesForRegister() {
+        Realm realm = realmDefaultInstance.createRealmInstance(context);
+        try {
+            List<OrchextraGeofence> geofences = configInfoResultReader.getAllGeofences(realm);
+            return new BusinessObject<>(geofences, BusinessError.createOKInstance());
+        } catch (NotFountRealmObjectException | RealmException re) {
+            return new BusinessObject(null, BusinessError.createKoInstance(re.getMessage()));
+        } finally {
+            if (realm != null) {
+                realm.close();
+            }
+        }
     }
-  }
 
-  @Override public BusinessObject<OrchextraGeofence> obtainGeofenceById(String geofenceId) {
+    @Override
+    public BusinessObject<Object> removeLocalStorage() {
+        Realm realm = realmDefaultInstance.createRealmInstance(context);
 
-    Realm realm = realmDefaultInstance.createRealmInstance(context);
-
-    try {
-      OrchextraGeofence geofence = configInfoResultReader.getGeofenceById(realm, geofenceId);
-      return new BusinessObject<>(geofence, BusinessError.createOKInstance());
-    } catch (NotFountRealmObjectException | RealmException re) {
-      return new BusinessObject(null, BusinessError.createKoInstance(re.getMessage()));
-    } finally {
-      if (realm != null) {
-        realm.close();
-      }
+        try {
+            configInfoResultUpdater.removeConfigInfo(realm);
+            return new BusinessObject<>(null, BusinessError.createOKInstance());
+        } catch (Exception re) {
+            GGGLogImpl.log("No se ha eliminado correctamente la bas de datos: " + re.getMessage());
+            return new BusinessObject(null, BusinessError.createKoInstance(re.getMessage()));
+        } finally {
+            if (realm != null) {
+                realm.close();
+            }
+        }
     }
-  }
+
+    @Override
+    public BusinessObject<OrchextraGeofence> obtainGeofenceById(String geofenceId) {
+
+        Realm realm = realmDefaultInstance.createRealmInstance(context);
+
+        try {
+            OrchextraGeofence geofence = configInfoResultReader.getGeofenceById(realm, geofenceId);
+            return new BusinessObject<>(geofence, BusinessError.createOKInstance());
+        } catch (NotFountRealmObjectException | RealmException re) {
+            return new BusinessObject(null, BusinessError.createKoInstance(re.getMessage()));
+        } finally {
+            if (realm != null) {
+                realm.close();
+            }
+        }
+    }
 }

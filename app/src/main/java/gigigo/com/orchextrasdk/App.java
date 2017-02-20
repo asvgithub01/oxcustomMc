@@ -40,7 +40,7 @@ public class App extends Application implements OrchextraCompletionCallback, Cus
     public static final String API_SECRET = "6efda2dc815af99c4e53b588e118ef76ae53fbfb";
 
     public static final String SENDER_ID = "Your_Sender_ID";//if is not valid sender id, orchextra disabled push receive
-    public static MotionServiceUtility mMotionServiceUtility;
+   // public static MotionServiceUtility mMotionServiceUtility;
 
     @Override
     public void onCreate() {
@@ -61,9 +61,7 @@ public class App extends Application implements OrchextraCompletionCallback, Cus
         Orchextra.setCustomSchemeReceiver(this);
 
         Orchextra.start(); //for only one time, each time you start Orchextra get orchextra project configuration is call
-        mMotionServiceUtility = new MotionServiceUtility(this);
-        BluetoothResetUtility bluetoothResetUtility = new BluetoothResetUtility(this);
-        bluetoothResetUtility.createAlarmResetBluetoothEachTime(60 * 1000 * 30);
+
     }
 
     @Override
@@ -82,9 +80,15 @@ public class App extends Application implements OrchextraCompletionCallback, Cus
     }
 
     @Override
+    public void onConfigurationReceive(String s) {
+
+    }
+
+    @Override
     public void onReceive(String scheme) {
         Log.d("APP", "Scheme: " + scheme);
     }
+
 }
 
 

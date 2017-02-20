@@ -91,7 +91,7 @@ configurations {
 }
 
 dependencies {
-    /* compile('com.github.nuborisar.oxcustomMc:orchextrasdk:4.2:play7Debug@aar')
+    play7DebugCompile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:4.0.0RC:play7Release@aar')
               {
                   transitive = true
                   changing = true
@@ -99,7 +99,7 @@ dependencies {
                 //  exclude module: 'ggglogger'
                //   exclude module: 'ggg-java-lib'
               }
-    compile('com.google.android.gms:play-services-location:7.8.0')
+  /*   compile('com.google.android.gms:play-services-location:7.8.0')
     compile('com.google.android.gms:play-services-gcm:7.8.0')*/
     /*  compile  'com.github.Orchextra.orchextra-android-sdk:orchextrasdk:2.3.4'
     play9ReleaseCompile project(path: ':orchextrasdk', configuration: 'play9Release')
@@ -127,7 +127,7 @@ dependencies {
 //flavour dependencies from project, for test(necesary for generate builtsvariants aars)
 //
 
-    play7DebugCompile project(path: ':orchextrasdk', configuration: 'play7Debug')
+   // play7DebugCompile project(path: ':orchextrasdk', configuration: 'play7Debug')
     play8DebugCompile project(path: ':orchextrasdk', configuration: 'play8Debug')
     play9DebugCompile project(path: ':orchextrasdk', configuration: 'play9Debug')
 

@@ -65,9 +65,6 @@ public class OrchextraTasksManagerImpl implements OrchextraTasksManager {
         beaconScanner.startMonitoring();
         beaconScanner.initAvailableRegionsRangingScanner();
     }
-
-
-
     @Override
     public void initForegroundTasks() {
         initTasks(FOREGROUND);

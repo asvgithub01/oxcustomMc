@@ -125,7 +125,7 @@ public class MotionService extends Service implements SensorEventListener {
 
     private void stopServices() {
         saveIsStopped(true);
-        Orchextra.pause();
+        Orchextra.pause(this);
 
     }
 

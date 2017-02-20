@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-       App.mMotionServiceUtility.start();
+    //   App.mMotionServiceUtility.start();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // startAppoxee();
         Orchextra.start();
 
-        App.mMotionServiceUtility.stop();
+       // App.mMotionServiceUtility.stop();
 
         //we only program updater if the OX are in start mode
         UpdateConfigUtility updater = new UpdateConfigUtility(MainActivity.this);

@@ -1,8 +1,8 @@
 # Orchextra SDK for Android
-[![Build Status](https://travis-ci.org/Orchextra/orchextra-android-sdk.svg?branch=master)](https://travis-ci.org/Orchextra/orchextra-android-sdk)
+[![Build Status](https://travis-ci.org/Orchextra/orchextra-android-sdk.svg?branch=ocm_integration)](https://travis-ci.org/Orchextra/orchextra-android-sdk)
 [![codecov.io](https://codecov.io/github/Orchextra/orchextra-android-sdk/coverage.svg?branch=master)](https://codecov.io/github/Orchextra/orchextra-android-sdk)
 ![Language](https://img.shields.io/badge/Language-Android-brightgreen.svg)
-![Version](https://img.shields.io/badge/Version-2.4.3-blue.svg)
+![Version](https://img.shields.io/badge/Version-4.0.1RC-blue.svg)
 [![](https://jitpack.io/v/Orchextra/orchextra-android-sdk.svg)](https://jitpack.io/#Orchextra/orchextra-android-sdk)
 ![](https://img.shields.io/badge/Min%20SDK-18-green.svg)
 
@@ -12,24 +12,24 @@ A library that gives you access to Orchextra platform from your Android sdkVersi
 Start by creating a project in [Orchextra Dashboard](https://dashboard.orchextra.io/start/login), if you haven't done it yet. Go to "Setting" > "SDK Configuration" to get the **api key** and **api secret**, you will need these values to start Orchextra SDK.
 
 ## Overview
-Orchextra SDK is composed of **Orchextra Core**.
+Orchextra SDK is composed of **Orchextra Core**, and add-ons
 
 #### Orchextra Core
 - Geofences
-- Beacons
+- IBeacons
 - Push Notifications
-- Barcode Scanner
+- Barcode/qr Scanner
 
-#### Image Recognition Add-on
+#### Image Recognition Ad-on
 - Image Recognition Scanner Module: Vuforia implementation
 
 ## Installation
 You can check how SDK works with the :app module of this repository.
 
 ### Requirements
-Android Jelly Bean (v. 18) or later. But Orchextra can be integrated in Android Gingerbread (v. 10), Google Play Services 7.8, 8.4 , or 9.0, and Google Support Api23.
+Android Jelly Bean (v. 18) or later. But Orchextra can be integrated in Android Gingerbread (v. 10), Google Play Services 7.8, 8.4 , 9.0, and now you can use flavour without google play services if you don't want geofencing, push notification, gps and scheduled actions. Now you can choose the support v7 and supportv4 versions.
 
-## Add the dependency
+## Add the dependency to Orchextra Core
 We have to add the gradle dependencies. In our rootproject **build.gradle** file, we add the following maven dependency. This is required in order to advice gradle that it has to look for Orchextra sdk inside **jitpack.io** maven repository. Gradle file is this one:
 
 <img src="https://github.com/Orchextra/orchextra-android-sdk/blob/master/resources/rootGradleScreenshot.png" width="300">
@@ -42,30 +42,38 @@ allprojects {
     }
 }
 ```
-Thinking about how to improve , in this version we have created different flavors using 3 different versions of GCM . And generating three versions of .aar possibilities.
+Thinking about how to improve , in this version we have created different flavors using 3 different versions of GCM and one more without googleplayservices support.
+And generating 4 versions of .aar possibilities.
 and we add the Orchextra dependency in our **sdkVersionAppInfo** module:
 
-with GCM 7.8
-```java
-   compile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:2.4.3RC:play7Release@aar')
+:bulb: with GCM 7.8
+```groovy
+   compile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:4.0.1RC:play7Release@aar')
    {transitive true}
    compile 'com.google.android.gms:play-services-location:7.8.0'
    compile 'com.google.android.gms:play-services-gcm:7.8.0'
 ```
-or with GCM 8.4
-```java
-   compile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:2.4.3RC:play8Release@aar')
+:bulb: or with GCM 8.4
+```groovy
+   compile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:4.0.1RC:play8Release@aar')
    {transitive true}
    compile 'com.google.android.gms:play-services-location:8.4.0'
    compile 'com.google.android.gms:play-services-gcm:8.4.0'
 ```
-or with GCM 9.0
-```java
-   compile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:2.4.3RC:play9Release@aar')
+:bulb: or with GCM 9.0
+```groovy
+   compile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:4.0.1RC:play9Release@aar')
      {transitive true}
    compile 'com.google.android.gms:play-services-location:9.0.0'
    compile 'com.google.android.gms:play-services-gcm:9.0.0'
 ```
+:bulb: or without Google Play Services
+```groovy
+   compile('com.github.orchextra.orchextra-android-sdk:orchextrasdk:4.0.1RC:playnoRelease@aar')
+     {transitive true}
+```
+If you use playnoRelease, some orchextraSDK features will not be available, geofences, notification push, scheduled Actions
+If you choose a Google Play Services aar of Orchextra you can add to the OrchextraBuilder the project number from Google Console aka sender id
 The previous dependency has to be added into this file:
 
 <img src="https://github.com/Orchextra/orchextra-android-sdk/blob/master/resources/appGradleScreenshot.png" width="300">
@@ -73,17 +81,72 @@ The previous dependency has to be added into this file:
 and we must sync gradle project.
 
 ## Integrate Orchextra SDK
-We have to created a class which **extends from Application** (if we didn't do yet) and add the Orchextra init method. We could implement OrchextraCompletionCallback interface in order to receive the orchextra status.
+We have to created a class which **extends from Application** (if we didn't do yet) and add the Orchextra init method is . We could implement OrchextraCompletionCallback interface in order to receive the orchextra status. :bulb: This Callback have a new event, onConfigurationReceive, for know when the configuration request ends.
 
 ```java
+@Override
+public void onCreate() {
 OrchextraBuilder builder = new OrchextraBuilder(this)
                 .setApiKeyAndSecret(API_KEY, API_SECRET)
+                .setLogLevel(OrchextraLogLevel.NETWORK)
                 .setOrchextraCompletionCallback(this));
         Orchextra.initialize(builder);
+        ...
+        }
 ```
 **IMPORTANT** you must make this call in **public void onCreate()** of your Application class, if you do not call initialize in this method, the SDK will not initialize properly. You can check that using the logLevel.
 
 **IMPORTANT** if you are using Android Studio 2.1 or higher, and have "Instant Run" enabled, the first time you install the APK is installed in new device, the initialize() spends too much time, maybe a minute on older devices.The second time the problem disappears. To avoid this problem in Android Studio, disables the " Instant Run" from settings-> Build , Execution , Deployment- > Instant Run
+
+## Set Notification Activity :bulb:
+
+Now you can choose the Activity that Orchextra uses for execute the action. This is very usefull when your application have SlashScreen Activity or your apllication only use Orchextra features if the user do login, for example. If you don't set this, the launcher Activity becomes the Notification Activity.
+
+For set the activity you must set in the OrchextraBuilder
+```java
+public void onCreate() {
+OrchextraBuilder builder = new OrchextraBuilder(this)
+                .setApiKeyAndSecret(API_KEY, API_SECRET)
+                .setLogLevel(OrchextraLogLevel.NETWORK)
+
+                .setNotificationActivityClass(MainActivity.class.toString())
+
+                .setOrchextraCompletionCallback(this));
+        Orchextra.initialize(builder);
+        ...
+        }
+```
+
+## Set background Beacons Scan Mode :bulb:
+ Now you can set mode background for beacons, for detect beacons very quickly when the app is closed. For now we have only two modes, NORMAL mode and HARDCORE, for increase scanner beacon activity. The battery consumption will be higher in Hardcore mode.
+```java
+public void onCreate() {
+ OrchextraBuilder builder = new OrchextraBuilder(this)
+                .setApiKeyAndSecret(API_KEY, API_SECRET)
+                .setLogLevel(OrchextraLogLevel.NETWORK)
+
+                .setBackgroundBeaconScanMode(BeaconBackgroundModeScan.HARDCORE);
+
+                .setOrchextraCompletionCallback(this));
+        Orchextra.initialize(builder);
+        ...
+```
+## Image Recognition Ad-on
+
+```java
+import com.gigigo.vuforiaimplementation.ImageRecognitionVuforiaImpl;
+...
+@Override
+public void onCreate() {
+OrchextraBuilder builder = new OrchextraBuilder(this)
+                .setApiKeyAndSecret(API_KEY, API_SECRET)
+                .setLogLevel(OrchextraLogLevel.NETWORK)
+                .setOrchextraCompletionCallback(this)
+                .setImageRecognitionModule(new ImageRecognitionVuforiaImpl());
+        Orchextra.initialize(builder);
+        ...
+        }
+```
 
 Then, in any part of our application we should start the orchextra sdk.
 
@@ -91,6 +154,26 @@ Then, in any part of our application we should start the orchextra sdk.
 Orchextra.start();
 ```
 After calling start, you can call `Orchextra.stop()` if you need to stop all Orchextra features, so you can call again start or stop in order to fit your requirements.
+
+## New Methods Pause/ReStart services on Orchextra SDK :bulb:
+
+We create new methods, for pause/restart geofencing and ranging  monitoring. You can call this methods anytime, after first Orchextra.start()
+```java
+Orchextra.pause(Context);
+```
+```java
+Orchextra.reStart(Context);
+```
+
+## New Method  refreshConfigurationInBackground on Orchextra SDK :bulb:
+
+This new method is very usefull if your Orchextra Project require to much geofences or beacon regions and you want to update that by time or distance with background process.
+```java
+Orchextra.refreshConfigurationInBackground(Context);
+```
+
+In the :app project you can find in ad-on services how that use all these new Methods.
+
 
 ## Change project/authCredentials Orchextra SDK
 In the new version we set the Orchextra project authCredentials when we initialize the sdk, if we want to change the Ox Project, we can call it in any moment.
@@ -110,18 +193,23 @@ Orchextra.setCustomSchemeReceiver(new CustomSchemeReceiver() {
             }
         });
 ```
+You can redefine this receiver in other places of your application. For example one in MainActivity and another diferent in DetailActivity.
 
-## Add user to Orchextra
+## Bind/unBind user to Orchextra :bulb:
+
 CrmUser class is a local representation of a user persisted to the Orchextra Database to help to create a good user segmentation. This object is optional and could be set up at any time.
 
 ```java
-Orchextra.setUser(new CrmUser(CRM_ID,
+Orchextra.bindUser(new CrmUser(CRM_ID,
                 new GregorianCalendar(1981, Calendar.MAY, 31),
                 CrmUser.Gender.GenderMale);
 ```
-At this time we are changing all related management *CrmUser* *keywords* and *tags* . In brief update this part with the new way to get and set these features.
+The new BindUser method is the new way to setCrmUser in OrchextraSDK, now you can unBind() the user for reset data on server side.
+```java
+Orchextra.unBindUser();
+```
 
-Is a good idea, always, put a unique key in *CRM_ID*, is the way for identificate your user in Orchextra. For example you can use the next snipped for generate key for device:
+Is a good idea, always, put a unique key in *CRM_ID*, is the way for identificate your user inside Orchextra. For example you can use the next snipped for generate unique key:
 ```java
 private String getUniqueCRMID() {
         String secureAndroidId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
@@ -131,6 +219,109 @@ private String getUniqueCRMID() {
         return deviceToken;
     }
  ```
+
+ All related management *CrmUser* *keywords* and *tags*  are now deprecated. In brief update this part with the new way to get and set these features, go to segmentation section to know the new operative.
+
+## Segmentation
+Orchextra SDK allows to create segmentation using tags, business units or custom fields. This segmentation can be performed by CrmUser or by device.
+
+### Segmentation by device
+Device segmentation can be created by using tags or business units.
+This methods set,get and clear the local tags and bunisessUnits, in the next configuration request will set data in server side.
+##### Using Device tags
+You can set new device tags:
+```java
+List<String> lst_tags = Arrays.asList("tagTest", "tagTest1");
+ Orchextra.setDeviceTags(lst_tags);
+```
+You can get device tags:
+```java
+List<String> deviceTags = Orchextra.getDeviceTags();
+```
+and you can clear all device tags:
+```java
+Orchextra.clearDeviceTags();
+```
+
+##### Using Device business units
+You can set new device business units:
+```java
+List<String> lst_bu = Arrays.asList("BuTest", "BuTest1");
+ Orchextra.setDeviceBusinessUnits(lst_tags);
+```
+You can get device business unit:
+
+```java
+List<String> userBusinessUnits = Orchextra.getUserBusinessUnits();
+```
+and you can clear all device  business unit:
+```java
+Orchextra.clearDeviceBusinessUnits();
+```
+
+### Segmentation by CRMUser
+User segmentation can be created by using tags, business units or custom fields.
+
+##### Using CRMUser tags
+You can set new user tags:
+```java
+List<String> lst_tags = Arrays.asList("tagTest", "tagTest1");
+ Orchextra.setUserTags(lst_tags);
+```
+You can get user tags:
+
+```java
+  List<String> userTags = Orchextra.getUserTags();
+```
+and you can clear all device  business unit:
+```java
+Orchextra.clearUserTags();
+```
+
+##### Using CRMUser business units
+You can set new user business units:
+```java
+List<String> lst_tags = Arrays.asList("tagTest", "tagTest1");
+ Orchextra.setUserTags(lst_tags);
+```
+You can get user business unit:
+```java
+ List<String> userbusinessunits= Orchextra.getUserBusinessUnits();
+```
+and you can clear all device  business unit:
+```java
+Orchextra.clearUserBusinessUnits();
+```
+
+##### Using CRMUser custom fields
+You can set new custom fields:
+
+```java
+            Map<String, String> nameValue = new HashMap<String, String>();
+            nameValue.put("name", "yourName");
+            Orchextra.setUserCustomFields(nameValue);
+```
+You can get availables custom fields:
+
+```java
+ Map<String, String> availablesCF = Orchextra.getUserCustomFields();
+```
+and you can clear all device  business unit:
+```java
+Orchextra.clearUserCustomFields();
+```
+
+
+
+### Commit configuration send segmentation to Server Side
+
+Afer all set segmentation information is required to commit back this to refresh new values.
+
+```java
+ Orchextra.commitConfiguration();
+```
+You can use this method for refresh orchextra configuration from your app.
+
 ##  Start Actions
 Orchextra SDK let you invoke a couple of action within your own application to start a new user journey
 
@@ -165,19 +356,49 @@ In your string.xml, you can include some customized strings
 ```
 In the same way, some color you can customize are
 ```xml
-<!-- Background color of the icon in the notification area -->
+<!-- Background color of the icon in the notification area API < 16 -->
 <color name="ox_notification_background_color">#EE524F</color>
 ​
 <!-- Toolbar title and icon color -->
 <color name="ox_toolbar_title_color">#FFF</color>
 ```
-Additionally, you should customize the Orchextra Sdk with your drawables.
- - ox_notification_large_icon: This image is used as large icon in notifications and as image in the dialogs inside the application.
- - ox_notification_alpha_small_icon: Icon is showed in the notification bar in Android version 21 o higher.
- - ox_notification_color_small_icon: Icon is showed in the notification bar in Android versions lower than 21.
+## New Notifications behavior :bulb:
+ Now when a background action is triggered, which does not have a notification configured, a default local notification is generated so that the user can access the alert.
+ To change the default values for the title and the body of the notification there are two new resources in strings.xml
+ ```xml
+ <string name="ox_notification_default_title">Orchextra</string>
+ <string name="ox_notification_default_body">Click to open your App</string>
+  ```
+:bulb: Additionally, you should customize the Orchextra Sdk with your drawables.
+
+ - ox_notification_alpha_small_icon(1*): Icon is showed in the status bar.
+ - ox_notification_large_icon(2*): This image is used as large icon in notifications and as image in the dialogs inside the application.
+ - ox_notification_color_small_icon(3*): Icon is showed in the notifications big end-bottom.
  - ox_close: Icon which is locate in the upper left corner of a screen and is used to close the view.
 
-## Push Notifications
+## New Custom Notifications Orchextra :bulb:
+
+We change the notifications to become in Custom notifications. For this we have generated 4 templates that can be overwritten from the SDK integrator app. Below we describe the templates and in which case they will be used by the SDK.
+
+For notifications from Push:
+   - ox_custom_big_push_notification.xml
+   - ox_custom_normal_push_notification.xml
+For the local notifications:
+    - ox_custom_big_local_notification.xml
+    - ox_custom_normal_local_notification.xml
+With this custom notification you can show the same kind notification style whitout depending on the android version of the device.
+
+This is the image using on the templates:
+- 1->ox_notification_alpha_small_icon.png
+- 2->ox_notification_large_icon.png
+- 3->ox_notification_color_small_icon.png
+
+![images uses](https://nuborisar.github.io/resources_notification.png)
+This sample is from Big notification, push or local are equals.
+:bulb:
+ **IMPORTANT** you must respect the ids of the views inside the notification template, if you don´t want show any view, not remove, put visibility gone atributte instead.
+
+## Push Notifications Orchextra
 
 ### Creating a push project
 
@@ -194,15 +415,15 @@ In this new version of OrchextraSDK you can use your own Push Notifications and 
 
 ### SDK configRequest for using Notification Push
 
+If you choose a Google Play Services aar of Orchextra you can add to the OrchextraBuilder the project number from Google Console aka sender id.
 In this version we use the OrchextraBuilder instead of `strings.xml` for set the sender_ID.
 
 ```java
 OrchextraBuilder builder = new OrchextraBuilder(this)
                 ...
-                .setGcmSenderId(SENDER_ID);
+                .setGcmSenderId(SENDER_ID); //if is invalid, NP broadcast will be disabled
 
         Orchextra.initialize(builder);
-
 ```
 Use here your _"Project Number"_(sender_id) and **Orchextra** and **Parse** will do all stuff for you.
 For customizing the push notifications title in SDK is quite simple you should Override this strings at your `strings.xml`
@@ -216,14 +437,12 @@ Now you can check if Push notifications are working, try to send a push using _P
 Image recognition is added as an add-on to Orchextra, by default SDK is not containing any Image recognition implementation, the only thing that is including is an interface that allows any of his implementations to communicate with Orchextra SDK.
 
 So, you can add the corresponding implementation as a gradle dependency to your project, at this moment the only available implementation is using Vuforia as image recognition engine. Here you have the gradle dependency:
-
 ```groovy
-compile 'com.github.GigigoGreenLabs.imgRecognition:vuforiaimplementation:1.0.1'
+ //vuforia 6.0
+    compile 'com.github.GigigoGreenLabs.imgRecogModule:vuforiaimplementation:1.9'
 ```
 
 Once you have added this dependency you will be able to inform OrchextraBuilder SDK about it has to use this implementation. You can do it this way:
-
-
 
 ```java
 OrchextraBuilder builder = new OrchextraBuilder(this)
@@ -241,12 +460,23 @@ To start an image recognition activity you only need to call:
 Orchextra.startImageRecognition();
 ```
 
-For this image recognition implementation uses Vuforia, and the NDK for Vuforia only works with Arm v7 processor architecture, for that you must add to you sdkVersionAppInfo build gradle:
- ```groovy
-  ndk {
+Orchextra Vuforia 6.0 have support only for armeabi-v7a, you must add in the **build.gradle** of your app inside "android" node:
+```java
+android{
+    defaultConfig {
+       ...
+        ndk {
             abiFilters "armeabi-v7a"
         }
- ```
+        ...
+    }
+}
+  ```
+
+And in the **gradle.properties** file in the root project
+```java
+    android.useDeprecatedNdk=true
+  ```
  With that Vuforia works in any kind of device
  For more infor about Vuforia visit https://developer.vuforiaCredentials.com/support
 
@@ -258,15 +488,15 @@ As you can see image recognition Activity is using Orchextra like ascpect, but d
 
 #### Image Resources:
  - `ox_close_button`: close button, "x" by default, it allows to use an Android XML `selector` resource
+ - `ir_scanline.png`:  is the image for the anim in video capture, you only put the newone inside drawable folder:
+ - `ir_mark_point.png`:  is the image for the anim in video capture, you only put the newone inside drawable folder:
 
 #### Colors:
 - `ir_color_primary `: main color for _Activity_ _ToolBar_. Default is `color_primary`
 - `ir_color_primary_dark `: color for _StatusBar_. Default is `color_primary_dark`
 - `ir_color_accent `: main color for _Activity_ _ToolBar_ text. Default is `color_accent`
-- `vuforia_loading_indicator_color `: color for loading _ProgressBar_. Default is `color_accent`
 - `vuforia_loading_bg_color `: color for loading screen background. Default is `color_primary`
-- `ir_scan_point_color `: color scanner points. Default is `color_primary`
-- `ir_scan_line_color `: color scanner line. Default is `color_accent`
+
 
 #### Texts:
  - `ox_loading_indicator_message`: Message that indicates that image recognition module is being loaded
@@ -291,16 +521,11 @@ OrchextraBuilder builder = new OrchextraBuilder(this)
                 ...
         Orchextra.initialize(builder);
 ```
-## Realm Support
-First at all you must include the newest version of [Realm](https://realm.io/docs/java/latest/#installation). Orchextra includes Realm as a library and exposes Orchextra's Realm module. You have to include this module in the Realm configuration when you define a Realm instance as follow:
-```java
-    RealmConfiguration configRequest =
-        new RealmConfiguration.Builder(context)
-            .modules(Realm.getDefaultModule(), new OrchextraRealmModule())
-            .build();
+## Realm Support :bulb:
+ We use this version of Realm:
 
-        Realm realm = Realm.getInstance(configRequest);
-```
+ classpath 'io.realm:realm-gradle-plugin:1.0.0'
+
 For more information to include Realm, visit the [Realm's documentation](https://realm.io/docs/java/latest/#sharing-schemas).
 
 # Acknowledgements
@@ -330,3 +555,4 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
